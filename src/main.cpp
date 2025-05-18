@@ -10,8 +10,8 @@ void runExperiment(const std::string& filename, const std::string& title,
                    std::vector<int> sizes, Train (*creator)(int)) {
   std::ofstream dataFile(filename + ".dat");
   std::ofstream timeFile(filename + "_time.dat");    
-  dataFile « "# N Operations\n";
-  timeFile « "# N Time(ms)\n";
+  dataFile << "# N Operations\n";
+  timeFile << "# N Time(ms)\n";
     
   for (int n : sizes) {
         // Измеряем количество операций
