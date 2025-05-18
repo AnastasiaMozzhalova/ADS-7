@@ -44,9 +44,8 @@ int Train::getLength() {
   int steps = 0;
   Car* current = startCar->next;
   countOp++; // переход в следующий вагон
-    
   while (true) {
-    steps++;     
+    steps++;
     if (current == startCar) {
             // Если вернулись в стартовый вагон
       if (current->light) {
@@ -64,8 +63,6 @@ int Train::getLength() {
             // Нашли вагон с включенной лампочкой
       current->light = false;
       countOp++; // операция изменения состояния
-            
-            // Возвращаемся назад на steps шагов
       for (int i = 0; i < steps; i++) {
         current = current->prev;
         countOp++;
@@ -73,7 +70,6 @@ int Train::getLength() {
             
             // Проверяем, вернулись ли мы в стартовый вагон
       if (current == startCar) {
-                // Лампочка уже погашена - значит это не наш маркер
         steps = 0;
         current->light = true;
         countOp++;
@@ -83,7 +79,6 @@ int Train::getLength() {
       countOp++;
       steps = 0;
     } else {
-            // Просто идем дальше
       current = current->next;
       countOp++;
     }
