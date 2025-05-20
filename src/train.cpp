@@ -1,6 +1,7 @@
 // Copyright 2021 NNTU-CS
 #include "train.h"
 #include <algorithm>
+
 Train::Train() : first(nullptr), countOp(0), length(0) {}
 
 Train::~Train() {
