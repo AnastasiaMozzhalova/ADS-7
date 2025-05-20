@@ -1,20 +1,21 @@
 // Copyright 2022 NNTU-CS
 #include "train.h"
-#include <iostream>
-#include <fstream>
-#include <vector>
 #include <chrono>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
 
-void runExperiment(const std::string& filename, const std::string& title, 
-                   std::vector<int> sizes, Train (*creator)(int)) {
+void runExperiment(const std::string& filename, const std::string& title,
+                   const std::vector<int>& sizes, Train (*creator)(int)) {
   std::ofstream dataFile(filename + ".dat");
-  std::ofstream timeFile(filename + "_time.dat");    
+  std::ofstream timeFile(filename + "_time.dat");
   dataFile << "# N Operations\n";
   timeFile << "# N Time(ms)\n";
 
   for (int n : sizes) {
     Train train = creator(n);
-    int ops = train.getLength();
+    train.getLength();
     dataFile << n << " " << train.getOpCount() << "\n";
     auto start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < 10; i++) {
@@ -22,9 +23,12 @@ void runExperiment(const std::string& filename, const std::string& title,
       tempTrain.getLength();
     }
     auto end = std::chrono::high_resolution_clock::now();
-    double time = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 10000.0; 
-    timeFile << n << " " << time << "\n";  
-    std::cout << "N = " << n << ", Operations = " << train.getOpCount() 
+    double time = std::chrono::duration_cast<std::chrono::microseconds>(
+                      end - start)
+                      .count() /
+                  10000.0;
+    timeFile << n << " " << time << "\n";
+    std::cout << "N = " << n << ", Operations = " << train.getOpCount()
               << ", Time = " << time << " ms" << std::endl;
   }
 
@@ -34,16 +38,20 @@ void runExperiment(const std::string& filename, const std::string& title,
   gnuplotScript << "set title '" << title << " (Operations)'\n";
   gnuplotScript << "set xlabel 'Number of cars (N)'\n";
   gnuplotScript << "set ylabel 'Number of operations'\n";
-  gnuplotScript << "plot '" << filename << ".dat' with linespoints title 'Operations', \\\n";
+  gnuplotScript << "plot '" << filename
+                << ".dat' with linespoints title 'Operations', \\\n";
   gnuplotScript << "     x*x/2 with lines title 'O(n^2)'\n";
 
   gnuplotScript << "set output '" << filename << "_time.png'\n";
   gnuplotScript << "set title '" << title << " (Time)'\n";
   gnuplotScript << "set ylabel 'Time (ms)'\n";
-  gnuplotScript << "plot '" << filename << "_time.dat' with linespoints title 'Time', \\\n";
+  gnuplotScript << "plot '" << filename
+                << "_time.dat' with linespoints title 'Time', \\\n";
   gnuplotScript << "     x*x/1000 with lines title 'O(n^2)'\n";
 
-  system("gnuplot plot_script.gnu");
+  if (system("gnuplot plot_script.gnu") != 0) {
+    std::cerr << "Error: Failed to execute gnuplot.\n";
+  }
 }
 
 int main() {
