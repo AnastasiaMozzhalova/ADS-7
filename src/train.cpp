@@ -49,11 +49,10 @@ int Train::getLength() {
       } else {
         steps = 0;
         current->light = true;
-        countOp += 2; // Установка маркера + переход
+        countOp++; // Установка маркера
       }
     } else if (current->light) {
       current->light = false;
-      countOp++; // Изменение света
       for (int i = 0; i < steps; i++) {
         current = current->prev;
         countOp++; // Учитываем возвраты
@@ -68,7 +67,7 @@ int Train::getLength() {
       steps = 0;
     } else {
       current = current->next;
-      countOp += 2; // Переход + проверка
+      countOp++; // Переход вперед
     }
   }
 }
