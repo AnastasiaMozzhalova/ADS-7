@@ -1,10 +1,11 @@
 // Copyright 2022 NNTU-CS
-#include "train.h"
+
 #include <chrono>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
+#include "train.h"
 
 void runExperiment(const std::string& filename, const std::string& title,
                    const std::vector<int>& sizes, Train (*creator)(int)) {
