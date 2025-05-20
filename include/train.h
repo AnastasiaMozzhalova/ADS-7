@@ -1,9 +1,5 @@
-// Copyright 2022 NNTU-CS
 #ifndef INCLUDE_TRAIN_H_
 #define INCLUDE_TRAIN_H_
-
-#include <vector>
-#include <random>
 
 class Train {
  private:
@@ -13,9 +9,8 @@ class Train {
     Car *prev;
   };
 
-  car* first;
   int countOp; // счетчик шагов (число переходов из вагона в вагон)
-  int lenght;
+  int length;
   Car *first; // точка входа в поезд (первый вагон)
  public:
   Train();
@@ -23,12 +18,12 @@ class Train {
 
   void addCar(bool light); // добавить вагон с начальным состоянием лампочки
   int getLength();          // вычислить длину поезда
-  int getOpCount() const;         // вернуть число переходов (из вагона в вагон)
-  int getActualLenght() const;
+  int getOpCount() const;   // вернуть число переходов (из вагона в вагон)
+  int getActualLength() const;
   void resetOpCount();
 
   static Train createAllLightsOn(int n);
   static Train createAllLightsOff(int n);
-  static Train createRandomLights (int n);
+  static Train createRandomLights(int n);
 };
 #endif  // INCLUDE_TRAIN_H_
