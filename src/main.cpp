@@ -17,7 +17,8 @@ void testTrain(int n, int mode, int& steps, int64_t& micros) {
   [[maybe_unused]] int len = train.getLength();
   auto end = std::chrono::high_resolution_clock::now();
 
-  auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+  auto duration = std::chrono::duration_cast<std::
+  chrono::microseconds>(end - start);
   micros = duration.count();
   steps = train.getOpCount();
 }
