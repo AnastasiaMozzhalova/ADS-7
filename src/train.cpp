@@ -6,7 +6,6 @@ Train::Train() : first(nullptr), countOp(0), length(0) {}
 
 Train::~Train() {
   if (!first) return;
-    
   Car* current = first;
   do {
     Car* next = current->next;
@@ -14,10 +13,8 @@ Train::~Train() {
     current = next;
   } while (current != first);
 }
-
 void Train::addCar(bool light) {
   Car* newCar = new Car{light, nullptr, nullptr};
-    
   if (!first) {
     first = newCar;
     first->next = first;
@@ -31,12 +28,9 @@ void Train::addCar(bool light) {
   }
   length++;
 }
-
 int Train::getLength() {
   if (!first) return 0;
-    
   resetOpCount();
-    
   Car* startCar = first;
   if (!startCar->light) {
     startCar->light = true;
@@ -54,28 +48,22 @@ int Train::getLength() {
                 // и мы сделали полный круг
         return steps;
       } else {
-                // Лампочка погашена - значит это не наш маркер
-                // Продолжаем поиск
         steps = 0;
         current->light = true;
         countOp++;
       }
     } else if (current->light) {
-            // Нашли вагон с включенной лампочкой
       current->light = false;
       countOp++; // операция изменения состояния
       for (int i = 0; i < steps; i++) {
         current = current->prev;
         countOp++;
-      }
-            
-            // Проверяем, вернулись ли мы в стартовый вагон
+      } // Проверяем, вернулись ли мы в стартовый вагон
       if (current == startCar) {
         steps = 0;
         current->light = true;
         countOp++;
       }
-            
       current = current->next;
       countOp++;
       steps = 0;
@@ -85,19 +73,15 @@ int Train::getLength() {
     }
   }
 }
-
 int Train::getOpCount() const {
   return countOp;
 }
-
 int Train::getActualLength() const {
   return length;
 }
-
 void Train::resetOpCount() {
   countOp = 0;
 }
-
 Train Train::createAllLightsOn(int n) {
   Train train;
   for (int i = 0; i < n; i++) {
@@ -105,7 +89,6 @@ Train Train::createAllLightsOn(int n) {
   }
   return train;
 }
-
 Train Train::createAllLightsOff(int n) {
   Train train;
   for (int i = 0; i < n; i++) {
@@ -113,13 +96,11 @@ Train Train::createAllLightsOff(int n) {
   }
   return train;
 }
-
 Train Train::createRandomLights(int n) {
   Train train;
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<> distrib(0, 1);
-    
   for (int i = 0; i < n; i++) {
     train.addCar(distrib(gen) == 1);
   }
