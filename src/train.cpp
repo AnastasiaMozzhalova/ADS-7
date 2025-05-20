@@ -36,39 +36,40 @@ int Train::getLength() {
   Car* startCar = first;
   if (!startCar->light) {
     startCar->light = true;
-    countOp++;
+    countOp++; // Установка маркера
   }
   int steps = 0;
   Car* current = startCar->next;
-  countOp++;
+  countOp++; // Первый переход
   while (true) {
     steps++;
     if (current == startCar) {
       if (current->light) {
-        return steps;
+        countOp++; // Учитываем последний шаг перед возвратом
+        return steps; // Длина найдена
       } else {
         steps = 0;
         current->light = true;
-        countOp++;
+        countOp++; // Установка маркера
       }
     } else if (current->light) {
       current->light = false;
-      countOp++;
+      countOp++; // Изменение света
       for (int i = 0; i < steps; i++) {
         current = current->prev;
-        countOp++;
+        countOp++; // Учитываем возвраты
       }
       if (current == startCar) {
         steps = 0;
         current->light = true;
-        countOp++;
+        countOp++; // Установка маркера
       }
       current = current->next;
-      countOp++;
+      countOp++; // Переход вперед
       steps = 0;
     } else {
       current = current->next;
-      countOp++;
+      countOp++; // Переход вперед
     }
   }
 }
