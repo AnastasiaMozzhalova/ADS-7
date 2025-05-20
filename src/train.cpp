@@ -1,6 +1,7 @@
 // Copyright 2025 NNTU-CS
-#include "train.h"
+
 #include <random>
+#include "train.h"
 
 Train::Train() : first(nullptr), countOp(0), length(0) {}
 
