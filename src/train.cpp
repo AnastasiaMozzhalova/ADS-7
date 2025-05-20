@@ -1,6 +1,6 @@
 // Copyright 2021 NNTU-CS
 #include "train.h"
-#include <algorithm>
+#include <random>
 
 Train::Train() : first(nullptr), countOp(0), length(0) {}
 
@@ -13,6 +13,7 @@ Train::~Train() {
     current = next;
   } while (current != first);
 }
+
 void Train::addCar(bool light) {
   Car* newCar = new Car{light, nullptr, nullptr};
   if (!first) {
@@ -28,24 +29,22 @@ void Train::addCar(bool light) {
   }
   length++;
 }
+
 int Train::getLength() {
   if (!first) return 0;
   resetOpCount();
   Car* startCar = first;
   if (!startCar->light) {
     startCar->light = true;
-    countOp++; // учитываем операцию изменения состояния
+    countOp++;
   }
   int steps = 0;
   Car* current = startCar->next;
-  countOp++; // переход в следующий вагон
+  countOp++;
   while (true) {
     steps++;
     if (current == startCar) {
-            // Если вернулись в стартовый вагон
       if (current->light) {
-                // Если лампочка все еще горит - значит это наш маркер
-                // и мы сделали полный круг
         return steps;
       } else {
         steps = 0;
@@ -54,11 +53,11 @@ int Train::getLength() {
       }
     } else if (current->light) {
       current->light = false;
-      countOp++; // операция изменения состояния
+      countOp++;
       for (int i = 0; i < steps; i++) {
         current = current->prev;
         countOp++;
-      } // Проверяем, вернулись ли мы в стартовый вагон
+      }
       if (current == startCar) {
         steps = 0;
         current->light = true;
@@ -73,15 +72,19 @@ int Train::getLength() {
     }
   }
 }
+
 int Train::getOpCount() const {
   return countOp;
 }
+
 int Train::getActualLength() const {
   return length;
 }
+
 void Train::resetOpCount() {
   countOp = 0;
 }
+
 Train Train::createAllLightsOn(int n) {
   Train train;
   for (int i = 0; i < n; i++) {
@@ -89,6 +92,7 @@ Train Train::createAllLightsOn(int n) {
   }
   return train;
 }
+
 Train Train::createAllLightsOff(int n) {
   Train train;
   for (int i = 0; i < n; i++) {
@@ -96,6 +100,7 @@ Train Train::createAllLightsOff(int n) {
   }
   return train;
 }
+
 Train Train::createRandomLights(int n) {
   Train train;
   std::random_device rd;
