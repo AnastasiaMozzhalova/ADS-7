@@ -5,6 +5,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include "train.h"
 
 void testTrain(int n, int mode, int& steps, int64_t& micros) {
   Train train;
