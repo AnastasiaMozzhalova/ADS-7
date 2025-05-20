@@ -9,20 +9,17 @@ class Train {
     Car *next;
     Car *prev;
   };
-
   int countOp; // счетчик шагов (число переходов из вагона в вагон)
-  int length;
-  Car *first; // точка входа в поезд (первый вагон)
+  int length;  // длина поезда
+  Car *first;  // точка входа в поезд (первый вагон)
  public:
   Train();
   ~Train();
-
   void addCar(bool light); // добавить вагон с начальным состоянием лампочки
-  int getLength();          // вычислить длину поезда
-  int getOpCount() const;   // вернуть число переходов (из вагона в вагон)
+  int getLength();         // вычислить длину поезда
+  int getOpCount();        // вернуть число переходов (из вагона в вагон)
   int getActualLength() const;
   void resetOpCount();
-
   static Train createAllLightsOn(int n);
   static Train createAllLightsOff(int n);
   static Train createRandomLights(int n);
