@@ -45,11 +45,13 @@ int Train::getLength() {
     steps++;
     if (current == startCar) {
       if (current->light) {
+        countOp++; // Учитываем последний шаг перед возвратом
         return steps; // Длина найдена
       } else {
         steps = 0;
         current->light = true;
         countOp++; // Установка маркера
+        countOp++; // Дополнительная операция
       }
     } else if (current->light) {
       current->light = false;
@@ -68,6 +70,7 @@ int Train::getLength() {
     } else {
       current = current->next;
       countOp++; // Переход вперед
+      countOp++; // Дополнительная операция
     }
   }
 }
