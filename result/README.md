@@ -1,2 +1,2 @@
-![plot-1](https://github.com/user-attachments/assets/47ace170-15e9-4fdf-8292-5fe1bf51caa4)
-![plot-2](https://github.com/user-attachments/assets/7266fd5e-d6ae-4447-a358-74fe591f7000)
+![plot-1 (1)](https://github.com/user-attachments/assets/435993fa-aad5-4934-874e-03a93b7ebc63)
+![plot-2 (1)](https://github.com/user-attachments/assets/30ed2159-0d6d-44b8-a1de-e37915bf40d4)
